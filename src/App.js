@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Login from './components/Login';
+import KeywordSearch from './components/KeywordSearch';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {isAuthenticated: false}
+
+  handleLoginSuccess = () => {
+    this.setState({ isAuthenticated: true });
+  };
+
+  render() {
+    const {isAuthenticated} = this.state
+    return (
+      <div className="App">
+        {isAuthenticated ? (
+          <KeywordSearch />
+        ) : (
+          <Login onLoginSuccess={this.handleLoginSuccess} />
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;
+
+
+
